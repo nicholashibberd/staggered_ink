@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Default Site</title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body id="default_site">
+	<div id='wrapper'>
+		<div id='header'>
+			<div id="logo">
+				<h1><%= logo %></h1>
+			</div>
+		</div>
+		<div id='top_nav'>
+			<%= render 'layouts/top_nav', :nav_menu => NavMenu.first %>
+		</div>
+		
+		<%= yield %>
+
+
+	</div>
+	<div id="footer">
+		<div id="footer_wrapper">
+			<%= render 'layouts/footer' %>
+		</div>
+	</div>
+	<%= render 'layouts/analytics' %>
+</body>
+</html>

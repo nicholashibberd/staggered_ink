@@ -1,0 +1,31 @@
+<div class='top_right_controls'>
+  <%= link_to 'Add New Image', new_gallery_image_path(:gallery_id => 'content'), :class => 'btn btn-info', :id => 'new_image_link' %>
+</div>
+
+<div class="field clearfix">
+  <%= f.label :choose_image %>
+  <% ContentImage.all.each do |image| %>
+   <div class="image_widget_form_item">
+    <div class="image_widget_form_item_details">
+      <%= radio_button_tag 'image_widget[content_image_id]', image.id, widget.content_image == image %>
+      <%= label_tag image.name %>     
+    </div>
+    <%= image_tag image.file.thumb.url %><br />
+   </div>
+  <% end %>
+</div>
+
+<div class="field">
+  <%= f.label :caption %>
+  <%= f.text_field :caption %>
+</div>
+
+<div class="field">
+  <%= f.label :link %>
+  <%= f.text_field :link %>
+</div>
+
+<!-- <div class="field">
+  <%#= f.label :display_in_lightbox %>
+  <%#= f.select :display_in_lightbox, options_for_select([['Yes', true], ['No', false]], widget.display_in_lightbox) %>
+</div> -->

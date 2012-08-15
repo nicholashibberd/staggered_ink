@@ -1,0 +1,25 @@
+<%= form_for @gallery do |f| %>
+	<div class="field">
+	  <%= f.label :name %>
+	  <%= f.text_field :name %>
+	</div>
+	<div class="field">
+	  <%= f.label :width %>
+	  <%= f.text_field :width %>
+	</div>
+	<div class="field">
+	  <%= f.label :height %>
+	  <%= f.text_field :height %>
+	</div>
+	<div class="field">
+	  <%= f.label :thumbnail_width %>
+	  <%= f.text_field :thumbnail_width %>
+	</div>
+	<div class="field">
+	  <%= f.label :thumbnail_height %>
+	  <%= f.text_field :thumbnail_height %>
+	</div>
+  <div class="button confirm_button">
+    <%= f.submit :class => 'btn btn-success' %>
+  </div>
+<% end %>

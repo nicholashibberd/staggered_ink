@@ -1,0 +1,39 @@
+<div class="subnav">
+	<div id="status">
+		<% if current_user %>
+			<%= current_user.name %> &nbsp; <%= link_to "Sign out", signout_path, :id => 'signout_link' %>
+		<% else %>
+			<%= link_to 'Sign in', signin_path %>						
+		<% end %>
+	</div>
+	
+	<ul class="nav nav-pills">
+	  <li>
+	    <a href="/admin/pages">Pages</a>
+	  </li>
+	
+	  <li class="dropdown" id="menu1">
+	    <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
+	      Galleries
+	      <b class="caret"></b>
+	    </a>
+	    <ul class="dropdown-menu">
+	      <li><a href="/admin/galleries/content/images">Content Images</a></li>
+	      <li><a href="/admin/galleries/background/images">Background Images</a></li>
+	    </ul>
+	  </li>
+
+	  <li>
+	    <a href="/admin/documents">Documents</a>
+	  </li>
+	
+	  <li>
+	    <a href="/admin/nav_menus">Links</a>
+	  </li>
+
+	  <li>
+	    <a href="/admin/users">Users</a>
+	  </li>
+	
+	</ul>	
+</div>

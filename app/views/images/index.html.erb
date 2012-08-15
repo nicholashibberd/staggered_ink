@@ -1,0 +1,40 @@
+<div class="top_right_controls">
+	<%= link_to 'New Image', new_gallery_image_path(@gallery.name), :class => 'btn btn-info' %>
+</div>
+
+<div class="page_header">
+	<h1><%= @gallery.name.titleize %> Images</h1>
+</div>
+
+<section class="page_content">
+	<div id="sortable_images">
+		<% @images.asc(:position).each do |image| %>
+			<div class="index_item image_index_item" id="image_<%= image.id %>">
+				<div class="controls">
+					<%= link_to 'Delete', gallery_image_path(@gallery.name, image), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+					<%= link_to 'Edit', edit_gallery_image_path(@gallery.name, image), :class => 'btn btn-warning' %>				
+				</div>
+				<div class="images_index_image">
+					<%= image_tag image.file.thumb.url %> &nbsp;<%= image.name %>
+				</div>
+			</div>
+		<% end %>
+	</div>
+</section>
+
+<%= javascript_tag do %>
+  $('#sortable_images').sortable(
+  	{	axis: 'y', 
+  		dropOnEmpty:false, 
+     	items: '.index_item',
+     	scroll: true,
+      update: function(){
+        $.ajax({
+       	 type: 'post', 
+         data: $('#sortable_images').sortable('serialize') + '&gallery=<%= @gallery.name-%>',
+         dataType: 'script', 
+         url: '/admin/order_images'
+			  })
+      }	
+	})
+<% end %>
