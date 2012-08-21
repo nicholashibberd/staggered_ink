@@ -2,7 +2,7 @@ class ImagesController < AdminController
   before_filter :set_gallery
 
   def new
-    @image = Image.new_instance(params)
+    @image = Image.new
   end
 
   def edit
@@ -10,13 +10,13 @@ class ImagesController < AdminController
   end
 
   def index
-    @images = @gallery.images
+    @images = Image.from_gallery(params[:gallery])
   end
 
   def create
-    image = Image.new_instance(params)
+    image = Image.new(params[:image])
     if image.save
-      redirect_to gallery_images_path(@gallery.name)
+      redirect_to images_path(:gallery => image.gallery)
     else
       flash[:error] = "Image could not be created"
       render :action => "new"
@@ -26,7 +26,7 @@ class ImagesController < AdminController
   def update
     image = Image.find(params[:id])
     if image.update_attributes(params[:image])
-      redirect_to gallery_images_path(@gallery.name)
+      redirect_to images_path(:gallery => image.gallery)
     else
       flash[:error] = "Image could not be updated"      
       render :action => "edit"
@@ -36,17 +36,18 @@ class ImagesController < AdminController
   def destroy
     image = Image.find(params[:id])
     image.destroy
-    redirect_to gallery_images_path(@gallery.name)
+    redirect_to images_path
   end
 
   def set_gallery
-    gallery_info = Gallery::GALLERIES[params[:gallery_id]]
-    @gallery = Gallery.new(gallery_info)
+    if gallery = params[:gallery]
+      @gallery = Image::GALLERIES[gallery.to_sym]
+    end
   end
 
   def order_images
-    gallery = Gallery.find(params[:gallery])
-    gallery.order_images(params)
+    #gallery = ImageCollection.find(params[:collection])
+    #collection.order_images(params)
     render :nothing => true
   end  
 end

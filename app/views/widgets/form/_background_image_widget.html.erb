@@ -4,7 +4,7 @@
 
 <div class="field">
   <%= f.label :choose_image %>
-	<% Image.background_images.all.each do |image| %>
+	<% Image.from_gallery('background').each do |image| %>
    <div class="image_widget_form_item">
 		<div class="image_widget_form_item_details">
 			<%= radio_button_tag 'background_image_widget[image_id]', image.id, widget.image == image %>

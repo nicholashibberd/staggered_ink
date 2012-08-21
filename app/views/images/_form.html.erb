@@ -1,20 +1,22 @@
-<%= form_for(@image, {:url => image_form_path(@gallery.name, @image), :html => {:multipart => true}}) do |f| %>
+<%= form_for(@image, {:html => {:multipart => true}}) do |f| %>
+	<%= f.hidden_field :gallery, :value => @gallery[:slug] %>
   <div class="field">
     <%= f.label :name %>
     <%= f.text_field :name %>
-  </div>	
-  
-	<% if @image.is_a?(ContentImage) %>
+  </div>
+
+  <% unless @gallery[:width] %>
 	  <div class="field">
 	    <%= f.label :width %>
 	    <%= f.text_field :width %>
 	  </div>
+
 	  <div class="field">
 	    <%= f.label :height %>
 	    <%= f.text_field :height %>
 	  </div>
 	<% end %>
-	
+
 	<div class="field">
     <%= f.label :image_file %>
     <%= f.file_field :file %>

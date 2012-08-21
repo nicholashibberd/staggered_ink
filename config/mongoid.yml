@@ -1,11 +1,11 @@
 development:
   host: localhost
-  database: default_site_development
+  database: staggered_ink_development
   #database: sanderstead_parish_development
 
 test:
   host: localhost
-  database: default_site_test
+  database: staggered_ink_test
 
 # set these environment variables on your prod server
 production:

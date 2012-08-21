@@ -3,9 +3,9 @@
 </div>
 
 <section class="page_content">
-	<% Gallery::GALLERIES.each do |gallery| %>
+	<% Image::GALLERIES.each do |name, gallery| %>
 		<div class="index_item">
-			<%= link_to gallery[:name].titleize, images_path(:gallery => gallery[:name]) %>
+			<%= link_to gallery[:name], images_path(:gallery => gallery[:slug]) %>
 		</div>
 	<% end %>
 </section>

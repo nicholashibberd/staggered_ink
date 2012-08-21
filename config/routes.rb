@@ -1,8 +1,8 @@
 DefaultSite::Application.routes.draw do
   scope 'admin' do
     resources :documents
-    resources :galleries do
-      resources :images
+    resources :images do
+      collection { get :galleries }
     end
     resources :pages do
       resources :widgets
@@ -30,7 +30,7 @@ DefaultSite::Application.routes.draw do
   post '/add_region', :to => 'pages#add_region', :as => :add_region
   
   # Routes in the host application
-  get '/pages/:id', :to => 'pages#show'
+  get '/:id', :to => 'pages#show', :as => :page_show
   match '/', :to => 'pages#show', :id => 'home', :as => :root
   
 end

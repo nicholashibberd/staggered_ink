@@ -4,23 +4,24 @@ class Image
   
   field :name
   field :position
-    
-  mount_uploader :file, ImageUploader
-  
-  def self.new_instance(params)
-    gallery_id = params[:gallery_id]
-    case gallery_id
-      when 'content' then ContentImage.new(params[:content_image])
-      when 'background' then BackgroundImage.new(params[:background_image])
-      when 'slideshow' then SlideshowImage.new(params[:slideshow_image])
-      else Image.new(params[:image])
-    end
-  end
+  field :width, :type => Integer
+  field :height, :type => Integer
+  field :thumbnail_width, :type => Integer
+  field :thumbnail_height, :type => Integer
+  field :gallery
 
+  GALLERIES = {
+    :content => {:name => 'Content', :slug => 'content', :gallery => false, :variable => true},
+    :cards => {:name => 'Cards', :slug => 'cards', :thumbnail_height => 200, :gallery => true, :variable => true}
+  }
+
+  scope :by_gallery, lambda {|gallery| where(:gallery => gallery)}
+  
+  mount_uploader :file, ImageUploader
   before_create :set_position
   
   def set_position
-    self.position = gallery.max_position + 1
+    self.position = Image.max_position + 1
   end
 
   def self.max_position
@@ -28,5 +29,9 @@ class Image
     current_highest = existing_images.map(&:position).max
     current_highest ||= 0
   end  
+
+  def self.from_gallery(gallery)
+    gallery ? by_gallery(gallery) : all
+  end
 
 end
