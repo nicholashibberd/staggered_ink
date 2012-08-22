@@ -12,22 +12,17 @@ class ImageUploader < CarrierWave::Uploader::Base
     process :resize_to_fit => [300, 200]
   end
 
-  process :dynamic_resize_to_fit, :if => :variable_image?
-  process :resize_to_gallery, :if => :fixed_size_image?
+  process :dynamic_resize_to_fit, :if => :content_image?
+  process :resize_to_fit => [900, 600], :if => :gallery_image?
 
-  def variable_image? image
+  def content_image? image
     return false unless gallery = find_gallery(model.gallery)
-    gallery[:variable] && dimensions_valid?(model.width, model.height)
-  end
-
-  def fixed_size_image? image
-    return false unless gallery = find_gallery(model.gallery)
-    gallery[:variable] == false && dimensions_valid?(gallery[:width], gallery[:height])
+    gallery[:content]
   end
 
   def gallery_image? image
     return false unless gallery = find_gallery(model.gallery)
-    gallery[:gallery] && gallery
+    gallery[:gallery]
   end
 
   def find_gallery(gallery)
@@ -35,18 +30,9 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   def dynamic_resize_to_fit
-    dimensions = [model.width, model.height]
-    resize_to_fit *(dimensions)
-  end
-
-  def resize_to_gallery
-    return nil unless gallery = find_gallery(model.gallery)
-    dimensions = [gallery[:width], gallery[:height]]
-    resize_to_fill *(dimensions)
-  end
-
-  def dimensions_valid?(width, height)
-    width.is_a?(Integer) && height.is_a?(Integer)
+    width = model.width.is_a?(Integer) ? model.width : 900
+    height = model.height.is_a?(Integer) ? model.height : 600
+    resize_to_fit *([width, height])
   end
 
   def cache_dir

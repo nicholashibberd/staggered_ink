@@ -11,8 +11,9 @@ class Image
   field :gallery
 
   GALLERIES = {
-    :content => {:name => 'Content', :slug => 'content', :gallery => false, :variable => true},
-    :cards => {:name => 'Cards', :slug => 'cards', :thumbnail_height => 200, :gallery => true, :variable => true}
+    :content => {:name => 'Content', :slug => 'content', :content => true, :gallery => false},
+    :cards => {:name => 'Cards', :slug => 'cards', :content => false, :gallery => true},
+    :wedding => {:name => 'Wedding', :slug => 'wedding', :content => false, :gallery => true}
   }
 
   scope :by_gallery, lambda {|gallery| where(:gallery => gallery)}

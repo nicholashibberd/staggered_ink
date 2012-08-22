@@ -1,8 +1,11 @@
 DefaultSite::Application.routes.draw do
   scope 'admin' do
     resources :documents
-    resources :images do
-      collection { get :galleries }
+    #resources :images do
+      #collection { get :galleries }
+    #end
+    scope ':gallery' do
+      resources :images
     end
     resources :pages do
       resources :widgets
