@@ -22,5 +22,10 @@ module PagesHelper
   def homepage?
     @page && @page.slug == 'home'
   end
+
+  def layout_image(layout)
+    image_path = Rails.root.join('app', 'assets', 'layouts', layout)
+    File.exist?(image_path) ? (image_tag "layouts/#{layout}.jpg") : layout.titleize
+  end
   
 end
