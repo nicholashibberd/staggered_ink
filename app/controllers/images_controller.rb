@@ -46,8 +46,7 @@ class ImagesController < AdminController
   end
 
   def order_images
-    #gallery = ImageCollection.find(params[:collection])
-    #collection.order_images(params)
+    Image.order(params)
     render :nothing => true
   end  
 end

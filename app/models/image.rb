@@ -34,4 +34,12 @@ class Image
     gallery ? by_gallery(gallery) : all
   end
 
+  def self.order(params)
+    images = from_gallery(params[:gallery])
+    images.each do |image|
+      image.position = params['image'].index(image.id.to_s) + 1
+      image.save!
+    end
+  end
+
 end

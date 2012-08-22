@@ -33,7 +33,7 @@
       update: function(){
         $.ajax({
        	 type: 'post', 
-         data: $('#sortable_images').sortable('serialize') + '&gallery=<%#= @gallery.slug-%>',
+         data: $('#sortable_images').sortable('serialize') + '&gallery=<%= @gallery[:slug]-%>',
          dataType: 'script', 
          url: '/admin/order_images'
 			  })
