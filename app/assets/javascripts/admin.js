@@ -10,3 +10,4 @@
 //= require forms.js
 //= require twitter/bootstrap
 //= require slimbox2.js
+//= require tinymce-jquery

@@ -14,6 +14,7 @@ gem "rack-cache"
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'rmagick'
 gem "fog", "~> 1.3.1"
+gem 'tinymce-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
