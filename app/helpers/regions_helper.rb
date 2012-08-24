@@ -76,7 +76,7 @@ module RegionsHelper
     
     def all
       #template.render_widgets(name, widgets, ['text', 'image'])
-      widget_types = @options[:widget_types] || ['text', 'image', 'gallery', 'events', 'map']
+      widget_types = @options[:widget_types] || ['text', 'image', 'gallery']
       render(name, widgets, widget_types)
     end   
     
