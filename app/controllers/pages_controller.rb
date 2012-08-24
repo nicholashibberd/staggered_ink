@@ -1,5 +1,6 @@
 class PagesController < AdminController
   layout :choose_layout
+  skip_before_filter :login_required, :only => [:home, :show]
   
   def home
     @page = Site.instance.homepage
